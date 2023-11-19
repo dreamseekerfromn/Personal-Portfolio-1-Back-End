@@ -19,6 +19,15 @@ const getOneUser = async (id) => {
     }
 }
 
+const searchOneUser = async (user_name) => {
+    try{
+        const user = await db.one(`SELECT * FROM users WHERE user_name = ${user_name}`);
+        return user;
+    } catch(err){
+        return err;
+    }
+}
+
 const createOneUser = async (item) => {
     console.log("======================")
     console.log("received item is ...")
@@ -62,4 +71,6 @@ module.exports = {
     getOneUser,
     createOneUser,
     updateOneUser,
+    deleteOneUser,
+    searchOneUser,
 }
