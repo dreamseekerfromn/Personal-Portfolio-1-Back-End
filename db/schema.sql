@@ -7,6 +7,6 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     user_name VARCHAR(40) UNIQUE NOT NULL,
     user_password VARCHAR(40) NOT NULL,
-    manager BOOLEAN
+    manager BOOLEAN DEFAULT false
 );
 
