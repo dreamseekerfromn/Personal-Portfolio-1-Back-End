@@ -45,7 +45,6 @@ const createOneUser = async (item) => {
     }
 }
 
-
 const updateOneUser = async(id, item) => {
     const { user_name, user_password } = item;
     try {
@@ -55,7 +54,6 @@ const updateOneUser = async(id, item) => {
         return err;
     }
 }
-
 
 const deleteOneUser = async(id) => {
     try {
