@@ -34,13 +34,16 @@ users.get("/:id", async (req, res) => {
 users.post("/login", async (req,res) => {
     try{
         const user = await searchOneUser(req.body.user_email);
+        console.log(user)
         if(user){
             if(user["user_password"] == req.body.user_password){
                 //return something
+                console.log(user)
+                res.status(200).json({ success: true, data: { payload: user[0] } });
             }
         }
         else{
-            return null;
+            res.status(400).json({error: "something missing"});
         }
     } catch(error){
         res.status(400).json({error: "something missing"});
