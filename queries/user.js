@@ -19,26 +19,26 @@ const getOneUser = async (id) => {
     }
 }
 
-const searchOneUser = async (user_name) => {
+const searchOneUser = async (user_email) => {
     try{
-        const user = await db.one(`SELECT * FROM users WHERE user_name = ${user_name}`);
+        const user = await db.one(`SELECT * FROM users WHERE user_email = ${user_email}`);
         return user;
     } catch(err){
         return err;
     }
 }
 
-const createOneUser = async (item) => {
+const createNewUser = async (item) => {
     console.log("======================")
     console.log("received item is ...")
     console.log(item)
     console.log("======================")
-    const { user_name, user_password } = item;
-    if(!user_name || !user_password ){
+    const { user_email, user_password, user_name } = item;
+    if(!user_email || !user_password || user_name){
         return {error: "something is missing"};
     }
     try {
-        const message = await db.one(`INSERT INTO users (user_name, user_password) VALUES ($1, $2) RETURNING *`, [user_name, user_password]);
+        const message = await db.one(`INSERT INTO users (user_name, user_password, user_name) VALUES ($1, $2, $3) RETURNING *`, [user_email, user_password, user_name]);
         return message;
     } catch(err){
         return err;
@@ -46,9 +46,9 @@ const createOneUser = async (item) => {
 }
 
 const updateOneUser = async(id, item) => {
-    const { user_name, user_password } = item;
+    const { user_email, user_password, user_name } = item;
     try {
-        const message = await db.one(`UPDATE users SET user_name=$1 user_password=$2 WHERE user_id = ${id} RETURNING *`,[user_name, user_password]);
+        const message = await db.one(`UPDATE users SET user_name=$1 user_password=$2 WHERE user_id = ${id} RETURNING *`,[user_email, user_password, user_name]);
         return message;
     } catch(err){
         return err;
@@ -67,7 +67,7 @@ const deleteOneUser = async(id) => {
 module.exports = {
     getAllUsers,
     getOneUser,
-    createOneUser,
+    createNewUser,
     updateOneUser,
     deleteOneUser,
     searchOneUser,

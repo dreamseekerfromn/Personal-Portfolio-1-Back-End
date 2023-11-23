@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllUsers, getOneUser, createOneUser, deleteOneUser } = require("../queries/user");
+const { getAllUsers, getOneUser, createNewUser, deleteOneUser, searchOneUser } = require("../queries/user");
 const users = express.Router();
 
 /** get */
@@ -31,16 +31,33 @@ users.get("/:id", async (req, res) => {
     }
 });
 
+users.post("/login", async (req,res) => {
+    try{
+        const user = await searchOneUser(req.body.user_email);
+        if(user){
+            if(user["user_password"] == req.body.user_password){
+                //return something
+            }
+        }
+        else{
+            return null;
+        }
+    } catch(error){
+        res.status(400).json({error: "something missing"});
+    }
+});
+
 users.post("/", async (req, res) => {
     //const {name, artist, album, time, is_favorite} = req.body;
     try{
-        const user = await createOneUser(req.body);
+        const user = await createNewUser(req.body);
         console.log(user)
         //res.json(posts);
     } catch(error) {
         res.status(400).json({error: "something missing in your header"});
     }
 });
+
 
 /** delete */
 users.delete("/:id", async (req, res) => {
