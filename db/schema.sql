@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS thread_db_dev;
-CREATE DATABASE thread_db_dev;
+DROP DATABASE IF EXISTS chat_db_dev;
+CREATE DATABASE chat_db_dev;
 
-\c thread_db_dev;
+\c chat_db_dev;
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,

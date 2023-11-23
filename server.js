@@ -1,7 +1,7 @@
 // DEPENDENCIES
 const app = require("./app.js");
-const io = require('socket.io')(Server);
-const { Server } = require("socket.io");
+//const { Server } = require("socket.io");
+//const io = require('socket.io')(Server);
 
 // CONFIGURATION
 require("dotenv").config();
@@ -12,6 +12,7 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
+/*
 io.on('connection', function(socket){
     console.log('a user connected');
-});
+});*/

@@ -34,11 +34,11 @@ const createNewUser = async (item) => {
     console.log(item)
     console.log("======================")
     const { user_email, user_password, user_name } = item;
-    if(!user_email || !user_password || user_name){
+    if(!user_email || !user_password || !user_name){
         return {error: "something is missing"};
     }
     try {
-        const message = await db.one(`INSERT INTO users (user_name, user_password, user_name) VALUES ($1, $2, $3) RETURNING *`, [user_email, user_password, user_name]);
+        const message = await db.one(`INSERT INTO users (user_email, user_password, user_name) VALUES ($1, $2, $3) RETURNING *`, [user_email, user_password, user_name]);
         return message;
     } catch(err){
         return err;
@@ -48,7 +48,7 @@ const createNewUser = async (item) => {
 const updateOneUser = async(id, item) => {
     const { user_email, user_password, user_name } = item;
     try {
-        const message = await db.one(`UPDATE users SET user_name=$1 user_password=$2 WHERE user_id = ${id} RETURNING *`,[user_email, user_password, user_name]);
+        const message = await db.one(`UPDATE users SET user_name=$3 user_password=$2 user_email=$1 WHERE user_id = ${id} RETURNING *`,[user_email, user_password, user_name]);
         return message;
     } catch(err){
         return err;
