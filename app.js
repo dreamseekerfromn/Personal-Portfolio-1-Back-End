@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const user = require("./controllers/userController.js");
+const rooms = require("./controllers/roomsController.js");
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +13,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/user", user);
+app.use("/rooms", rooms);
 
 // 404 Page not found
 app.get("*", (req, res) => {

@@ -12,3 +12,7 @@ CREATE TABLE users (
     user_status INTEGER DEFAULT 0
 );
 
+CREATE TABLE rooms {
+    room_id SERIAL PRIMARY KEY,
+    room_name VARCHAR(255) UNIQUE NOT NULL
+};
