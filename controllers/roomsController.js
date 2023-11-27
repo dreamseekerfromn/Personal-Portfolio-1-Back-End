@@ -1,5 +1,6 @@
 const express = require("express");
-const { getAllRooms, createNewRoom, deleteOneRoom } = require("../queries/rooms");
+const { getAllRooms, createNewRoom, deleteOneRoom, getOneRoom } = require("../queries/rooms");
+//const wsServer = require("../server");
 const rooms = express.Router();
 
 rooms.get("/", async (req, res) => {
@@ -13,6 +14,23 @@ rooms.get("/", async (req, res) => {
             res.status(200).json({ success: false, data: { error: "Server Error - we didn't do it!" } });
         }
     } catch(err){
+        console.log(err);
+    }
+});
+
+rooms.get("/:id", async (req, res) => {
+    try{
+        console.log(req.params)
+        const room = await getOneRoom(req.params);
+        console.log(room);
+        if(room){
+            //wsServer.to(room.room_name)
+            res.status(200).json({ success: true, data: { payload: room } });
+        }
+        else{
+            res.status(200).json({ success: false, data: { error: "Server Error - we didn't do it!" } });
+        }
+    }catch(err){
         console.log(err);
     }
 });

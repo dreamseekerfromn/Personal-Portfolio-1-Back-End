@@ -9,6 +9,15 @@ const getAllRooms = async () => {
     }
 }
 
+const getOneRoom = async (item) => {
+    try {
+        const room = await db.one("SELECT * FROM rooms WHERE room_id = $1", [item.id]);
+        return room;
+    } catch(err) {
+        return err;
+    }
+}
+
 const deleteOneRoom = async(id) => {
     try {
         const room = await db.one(`DELETE FROM rooms WHERE room_id = ${id} RETURNING *`);
@@ -39,4 +48,5 @@ module.exports = {
     getAllRooms,
     deleteOneRoom,
     createNewRoom,
+    getOneRoom,
 }
