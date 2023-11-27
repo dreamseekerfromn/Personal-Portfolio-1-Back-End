@@ -13,12 +13,12 @@ app.use(express.json());
 
 io.on('connection', function(socket){
     socket.on('login', function(data){
-        console.log(data);
+        console.log("hello login");
         io.emit('login',data);
     });
 
     socket.on('chat', function(data){
-        console.log(data);
+        console.log("hi chat");
         socket.broadcast.emit('chat',data);
     });
     socket.on('disconnect', function(){
@@ -35,6 +35,8 @@ app.use("/user", user);
 app.use("/rooms", rooms);
 app.use('/chat', (req, res, next) => {
     req.io = io;
+    //console.log(req.io)
+    console.log("good afternoon middleware")
     return next();
 }, chat);
 
