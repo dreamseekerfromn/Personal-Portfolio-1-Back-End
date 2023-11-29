@@ -6,7 +6,7 @@ const rooms = express.Router();
 rooms.get("/", async (req, res) => {
     try{
         const roomList = await getAllRooms();
-        console.log(roomList)
+        //console.log(roomList)
         if(roomList[0]){
             res.status(200).json({ success: true, data: { payload: [...roomList] } });
         }
@@ -20,9 +20,8 @@ rooms.get("/", async (req, res) => {
 
 rooms.get("/:id", async (req, res) => {
     try{
-        console.log(req.params)
         const room = await getOneRoom(req.params);
-        console.log(room);
+        //console.log(room);
         if(room){
             //wsServer.to(room.room_name)
             res.status(200).json({ success: true, data: { payload: room } });

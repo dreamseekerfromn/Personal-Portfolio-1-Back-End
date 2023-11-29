@@ -1,6 +1,18 @@
-const PORT = process.env.PORT;
-const io = require('socket.io').listen(app.listen(PORT));
+const session = require('express-session');
 
-export function expressIO(){
-    
+const sessionMiddleware = session({
+    secret: "changeit",
+    resave: true,
+    saveUninitialized: true,
+});
+
+const ioMiddle =
+    (req, res, next) => {
+        req.io = io;
+        next();
+    };
+
+module.exports = {
+    sessionMiddleware,
+    ioMiddle,
 }

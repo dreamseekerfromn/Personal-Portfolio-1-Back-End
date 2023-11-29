@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllUsers, getOneUser, createNewUser, deleteOneUser, searchOneUser } = require("../queries/user");
+const { getAllUsers, getOneUser, createNewUser, deleteOneUser, searchOneUser, updateOneUser } = require("../queries/user");
 const users = express.Router();
 
 /** get */
@@ -39,7 +39,7 @@ users.post("/login", async (req,res) => {
             if(user["user_password"] == req.body.user_password){
                 //return something
                 console.log(user)
-                res.status(200).json({ success: true, data: { payload: user[0] } });
+                res.status(200).json({ success: true, data: { payload: user } });
             }
         }
         else{
@@ -55,11 +55,24 @@ users.post("/", async (req, res) => {
     try{
         const user = await createNewUser(req.body);
         console.log(user)
-        //res.json(posts);
+        res.json(user);
     } catch(error) {
         res.status(400).json({error: "something missing in your header"});
     }
 });
+
+users.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log(req.body);
+    try{
+        const user = await updateOneUser(id, req.body);
+        console.log("hello")
+        console.log(user)
+        res.status(200).json({success: true, data: { payload: user } })
+    } catch(err){
+        res.status(400).json({error: "something missing in your header"});
+    }
+})
 
 
 /** delete */
@@ -74,6 +87,15 @@ users.delete("/:id", async (req, res) => {
     }
 });
 
+users.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const user = await updateOneUser(id, req.body);
+    if(user){
+        res.status(200).json({ success: true, data: { payload: user } });
+    }else{
+        res.status(400).json({error: "cannot update"});
+    }
+})
 /** page 404 */
 users.get("*", (req, res) => {
     res.status(404).send("with incorrect id - sets status to 404 and returns error key");

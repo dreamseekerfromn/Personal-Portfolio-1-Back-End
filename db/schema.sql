@@ -16,3 +16,10 @@ CREATE TABLE rooms (
     room_id SERIAL PRIMARY KEY,
     room_name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE messages (
+    message_id SERIAL PRIMARY KEY,
+    room_id INTEGER REFERENCES rooms(room_id) ON DELETE CASCADE, 
+    chat_message TEXT,
+    user_name VARCHAR(40) NOT NULL
+);
