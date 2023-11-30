@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const user = require("./controllers/userController.js");
 const rooms = require("./controllers/roomsController.js");
+const chat = require("./controllers/chatController.js");
 
 
 app.use(cors());
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use("/user", user);
 app.use("/rooms", rooms);
+app.use("/chat", chat);
 
 // root
 app.get("/", (request, response) => {

@@ -23,7 +23,7 @@ Basic queries are written in PostgreSQL.
 To run this backend server, simply type npm run start.
 To initialize database, simply type npm run dbinit.
 
-You might need following environmental variables to run this application.
+You might need fill out following environmental variables to run this application.
 
 PORT
 PORT2
@@ -41,6 +41,11 @@ CREATE DATABASE chat_db_dev;
 
 \c chat_db_dev;
 ```
+
+This backend has three routers /chat, /user and /rooms
+/rooms is used to get, post for room info for socket.
+/user is used to get basic user info and authentication.
+/chat is used to archieving chat messages (currently not fully functioning).
 
 ### Prerequisites
 
