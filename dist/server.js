@@ -12,8 +12,10 @@ io.on('connection', (socket)=>{
   socket.on('message', (messageBundle)=>{
     console.log(messageBundle);
     //console.log(" " + messageBundle.user_name);
-    io.emit('message', {user_name:messageBundle.user_name, message: messageBundle.message, room_id: messageBundle.room_id});
-    createNewMessage(messageBundle);
+    if(messageBundle.message){
+      io.emit('message', {user_name:messageBundle.user_name, message: messageBundle.message, room_id: messageBundle.room_id});
+      createNewMessage(messageBundle);
+    }
   });
 });
 
