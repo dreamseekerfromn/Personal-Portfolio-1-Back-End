@@ -17,6 +17,9 @@ io.on('connection', (socket)=>{
       createNewMessage(messageBundle);
     }
   });
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 });
 
 /*
