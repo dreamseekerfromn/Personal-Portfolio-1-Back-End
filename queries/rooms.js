@@ -2,7 +2,7 @@ const db = require("../db/dbConfig.js");
 
 const getAllRooms = async () => {
     try {
-        const rooms = await db.any("SELECT * FROM rooms");
+        const rooms = await db.any("SELECT * FROM rooms2");
         return rooms;
     } catch(err) {
         return err;
@@ -11,7 +11,7 @@ const getAllRooms = async () => {
 
 const getOneRoom = async (item) => {
     try {
-        const room = await db.one("SELECT * FROM rooms WHERE room_id = $1", [item.id]);
+        const room = await db.one("SELECT * FROM rooms2 WHERE room_id = $1", [item.id]);
         return room;
     } catch(err) {
         return err;
@@ -20,7 +20,7 @@ const getOneRoom = async (item) => {
 
 const deleteOneRoom = async(id) => {
     try {
-        const room = await db.one(`DELETE FROM rooms WHERE room_id = ${id} RETURNING *`);
+        const room = await db.one(`DELETE FROM rooms2 WHERE room_id = ${id} RETURNING *`);
         return room;
     } catch(err){
         return err;
@@ -37,7 +37,7 @@ const createNewRoom = async (item) => {
         return {error: "something is missing"};
     }
     try {
-        const room = await db.one(`INSERT INTO rooms (room_name) VALUES ($1) RETURNING *`, [room_name]);
+        const room = await db.one(`INSERT INTO rooms2 (room_name) VALUES ($1) RETURNING *`, [room_name]);
         return room;
     } catch(err){
         return err;
